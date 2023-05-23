@@ -1,0 +1,8 @@
+class Bag {
+    method() {
+        print "hello";
+    }
+}
+
+field bag = Bag();
+bag.method();
