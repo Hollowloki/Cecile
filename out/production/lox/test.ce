@@ -3,6 +3,8 @@ class Bag {
         print "hello";
     }
 }
-
+for (field a = 0; a < 5; a=a+1) {
+ print a;
+}
 field bag = Bag();
 bag.method();
