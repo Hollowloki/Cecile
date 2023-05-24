@@ -2,9 +2,10 @@ class Bag {
     method() {
         print "hello";
     }
+    method2() {
+        method();
+    }
 }
-for (field a = 0; a < 5; a=a+1) {
- print a;
-}
+
 field bag = Bag();
-bag.method();
+bag.method2();
