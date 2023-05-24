@@ -1,11 +1,6 @@
-class Bag {
-    method() {
-        print "hello";
-    }
-    method2() {
-        method();
-    }
+class Eclair {
+  cook() {
+    super.cook();
+    print "Pipe full of crème pâtissière.";
+  }
 }
-
-field bag = Bag();
-bag.method2();
