@@ -1,10 +1,7 @@
-#include <stdint.h>
-#include <stdlib.h>
-
 #include "chunk.h"
 #include "memory.h"
 
-void initChuk(Chunk* chunk) {
+void initChunk(Chunk *chunk) {
   chunk->count = 0;
   chunk->capacity = 0;
   chunk->code = NULL;

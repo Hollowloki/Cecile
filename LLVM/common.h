@@ -5,4 +5,4 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#endif // !clox_common_h
+#endif
