@@ -49,14 +49,22 @@ static Value peek(int distance) {
   return vm.stackTop[-1 - distance];
 }
 
+static bool isFalsey(Value value) {
+  return CECILE_IS_NIL(value) || (CECILE_IS_BOOL(value) && !CECILE_AS_BOOL(value));
+}
+
 static InterpretResult run() {
   #define READ_BYTE() (*vm.ip++)
   #define READ_CONSTANT() (vm.chunk->constants.values[READ_BYTE()])
-  #define BINARY_OP(op) \
+  #define BINARY_OP(valueType, op) \
     do { \
-      double b = pop(); \
-      double a = pop(); \
-      push(a op b); \
+      if (!CECILE_IS_NUMBER(peek(0)) || !CECILE_IS_NUMBER(peek(1))) { \
+        runtimeError("Operands must be numbers."); \
+        return INTERPRET_RUNTIME_ERROR; \
+      } \
+      double b = CECILE_AS_NUMBER(pop()); \
+      double a = CECILE_AS_NUMBER(pop()); \
+      push(valueType(a op b)); \
     } while (false)
 
   for (;;) {
@@ -78,10 +86,16 @@ static InterpretResult run() {
         push(constant);
         break;
       }
-      case OP_ADD: BINARY_OP(+); break;
-      case OP_SUBTRACT: BINARY_OP(-); break;
-      case OP_MULTIPLY: BINARY_OP(*); break;
-      case OP_DIVIDE: BINARY_OP(/); break;
+      case OP_NIL: push(CECILE_NIL_VAL); break;
+      case OP_TRUE: push(CECILE_BOOL_VAL(true)); break;
+      case OP_FALSE: push(CECILE_BOOL_VAL(false)); break;
+      case OP_ADD: BINARY_OP(CECILE_NUMBER_VAL, +); break;
+      case OP_SUBTRACT: BINARY_OP(CECILE_NUMBER_VAL, -); break;
+      case OP_MULTIPLY: BINARY_OP(CECILE_NUMBER_VAL, *); break;
+      case OP_DIVIDE: BINARY_OP(CECILE_NUMBER_VAL, /); break;
+      case OP_NOT:
+        push(CECILE_BOOL_VAL(isFalsey(pop())));
+        break;
       case OP_NEGATE: 
         if (!CECILE_IS_NUMBER(peek(0))) {
           runtimeError("Operand must be a number."); 

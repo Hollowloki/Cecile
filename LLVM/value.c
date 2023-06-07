@@ -27,5 +27,11 @@ void freeValueArray(ValueArray *array) {
 }
 
 void printValue(Value value) {
-  printf("%g", CECILE_AS_NUMBER(value));
+   switch (value.type) {
+    case CECILE_VAL_BOOL:
+      printf(CECILE_AS_BOOL(value) ? "true" : "false");
+      break;
+    case CECILE_VAL_NIL: printf("nil"); break;
+    case CECILE_VAL_NUMBER: printf("%g", CECILE_AS_NUMBER(value)); break;
+  }
 }
