@@ -89,6 +89,14 @@ static InterpretResult run() {
       case OP_NIL: push(CECILE_NIL_VAL); break;
       case OP_TRUE: push(CECILE_BOOL_VAL(true)); break;
       case OP_FALSE: push(CECILE_BOOL_VAL(false)); break;
+      case OP_EQUAL: {
+        Value b = pop();
+        Value a = pop();
+        push(CECILE_BOOL_VAL(valuesEqual(a, b)));
+        break;
+      }
+      case OP_GREATER: BINARY_OP(CECILE_BOOL_VAL, >); break;
+      case OP_LESS: BINARY_OP(CECILE_BOOL_VAL, <); break;
       case OP_ADD: BINARY_OP(CECILE_NUMBER_VAL, +); break;
       case OP_SUBTRACT: BINARY_OP(CECILE_NUMBER_VAL, -); break;
       case OP_MULTIPLY: BINARY_OP(CECILE_NUMBER_VAL, *); break;

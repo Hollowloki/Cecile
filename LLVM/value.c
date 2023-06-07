@@ -35,3 +35,14 @@ void printValue(Value value) {
     case CECILE_VAL_NUMBER: printf("%g", CECILE_AS_NUMBER(value)); break;
   }
 }
+
+bool valuesEqual(Value a, Value b) {
+  if (a.type != b.type) return false;
+
+  switch (a.type) {
+    case CECILE_VAL_BOOL: return CECILE_AS_BOOL(a) == CECILE_AS_BOOL(b);
+    case CECILE_VAL_NIL: return true;
+    case CECILE_VAL_NUMBER: return CECILE_AS_NUMBER(a) == CECILE_AS_NUMBER(b);
+    default: return false;
+  }
+}
