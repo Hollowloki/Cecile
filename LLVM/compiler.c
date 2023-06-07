@@ -162,7 +162,7 @@ static void grouping() {
 
 static void number() {
   double value = strtod(parser.previous.start, NULL);
-  emitConstant(value);
+  emitConstant(CECILE_NUMBER_VAL(value));
 }
 
 
