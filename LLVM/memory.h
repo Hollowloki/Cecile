@@ -2,6 +2,7 @@
 #define clox_memory_h
 
 #include "common.h"
+#include "object.h"
 
 #define FREE(type, pointer) reallocate(pointer, sizeof(type), 0)
 
