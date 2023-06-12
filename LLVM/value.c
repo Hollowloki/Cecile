@@ -35,12 +35,8 @@ void printValue(Value value) {
       break;
     case CECILE_VAL_NIL: printf("nil"); break;
     case CECILE_VAL_NUMBER: printf("%g", CECILE_AS_NUMBER(value)); break;
-    case CECILE_VAL_OBJ: {
-      ObjString* aString = CECILE_AS_STRING(a);
-      ObjString* bString = CECILE_AS_STRING(b);
-      return aString->length == bString->length && memcmp(aString->chars, bString->chars, aString->length) == 0;
-    }
-  }
+    case CECILE_VAL_OBJ: printObject(value); break;
+     }
 }
 
 bool valuesEqual(Value a, Value b) {
@@ -50,7 +46,12 @@ bool valuesEqual(Value a, Value b) {
     case CECILE_VAL_BOOL: return CECILE_AS_BOOL(a) == CECILE_AS_BOOL(b);
     case CECILE_VAL_NIL: return true;
     case CECILE_VAL_NUMBER: return CECILE_AS_NUMBER(a) == CECILE_AS_NUMBER(b);
-    case CECILE_VAL_OBJ: printObject(value); break;
+    case CECILE_VAL_OBJ: {
+      ObjString* aString = CECILE_AS_STRING(a);
+      ObjString* bString = CECILE_AS_STRING(b);
+      return aString->length == bString->length && memcmp(aString->chars, bString->chars, aString->length) == 0;
+    }
+
     default: return false;
   }
 }
