@@ -1,6 +1,7 @@
 #include "chunk.h"
 #include "common.h"
 #include "memory.h"
+#include "table.h"
 #include "value.h"
 #include "vm.h"
 #include <stddef.h>
@@ -33,9 +34,11 @@ static void runtimeError(const char* format, ...) {
 void initVM() {
   resetStack();
   vm.objects = NULL;
+  initTable(&vm.strings);
 }
 
 void freeVM() {
+  freeTable(&vm.strings);
   freeObjects();
 
 } 
