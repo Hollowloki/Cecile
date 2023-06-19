@@ -1,6 +1,22 @@
-class Eclair {
+class Doughnut {
   cook() {
-    super.cook();
-    print "Pipe full of crème pâtissière.";
+    print "Fry until golden brown.";
   }
 }
+
+class BostonCream < Doughnut {
+  cook(title) {
+    super.cook();
+    print "Pipe full of custard and coat with chocolate." + title;
+  }
+}
+
+print "Hello World!";
+field cream;
+cream = BostonCream();
+
+cream.title = "hi";
+print cream.title;
+cream.cook(cream.title);
+
+print 1 == 1;

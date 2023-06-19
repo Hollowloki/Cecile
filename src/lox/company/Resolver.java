@@ -1,5 +1,4 @@
 package lox.company;
-import com.sun.jdi.ClassType;
 
 import java.util.HashMap;
 import java.util.List;
