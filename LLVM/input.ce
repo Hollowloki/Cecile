@@ -1,12 +1,7 @@
-{
-  var b = 3;
-  print b;
-  {
-    var r = 5;
-    print r;
-    {
-      var g = 8;
-      print g;
-    }
-  }
+var a = 1;
+var b = 1;
+if (a != b) {
+ var c = a + b;
+} else {
+  var c = a - b;
 }

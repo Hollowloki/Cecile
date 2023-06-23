@@ -8,6 +8,8 @@ typedef enum {
   OP_RETURN,
   OP_NEGATE,
   OP_PRINT,
+  OP_JUMP,
+  OP_JUMP_IF_FALSE,
   OP_CONSTANT,
   OP_NIL,
   OP_TRUE,
