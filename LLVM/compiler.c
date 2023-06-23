@@ -317,7 +317,6 @@ static void namedVariable(Token name, bool canAssign) {
   } else {
     emitBytes(getOp, (uint8_t)arg);
   }
-  emitBytes(OP_GET_GLOBAL, arg);
 }
 
 
