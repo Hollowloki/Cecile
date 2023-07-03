@@ -18,6 +18,20 @@ static Obj* allocateObject(size_t size, ObjType type) {
   return object;
 }
 
+ObjFunction* newFunction() {
+  ObjFunction* function = ALLOCATE_OBJ(ObjFunction, CECILE_OBJ_FUNCTION);
+  function->arity = 0;
+  function->name = NULL;
+  initChunk(&function->chunk);
+  return function;
+}
+
+ObjNative* newNative(NativeFn function) {
+  ObjNative* native = ALLOCATE_OBJ(ObjNative, CECILE_OBJ_NATIVE);
+  native->function = function;
+  return native;
+}
+
 static ObjString* allocateString(char* chars, int length, int32_t hash) {
   ObjString* string = ALLOCATE_OBJ(ObjString, CECILE_OBJ_STRING);
   string->length = length;
@@ -59,8 +73,22 @@ ObjString* copyString(const char* chars, int length) {
   return allocateString(heapChars, length, hash);
 }
 
+static void printFunction(ObjFunction* function) {
+  if (function->name == NULL) {
+    printf("<script>");
+    return;
+  }
+  printf("<fn %s>", function->name->chars);
+}
+
 void printObject(Value value) {
   switch (CECILE_OBJ_TYPE(value)) {
+    case CECILE_OBJ_FUNCTION:
+      printFunction(CECILE_AS_FUNCTION(value));
+      break;
+    case CECILE_OBJ_NATIVE:
+      printf("<native fn>");
+      break;
     case CECILE_OBJ_STRING:
       printf("%s", CECILE_AS_CSTRING(value));
       break;
