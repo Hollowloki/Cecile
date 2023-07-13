@@ -2,7 +2,6 @@
 #define clox_vm_h
 
 #include "chunk.h"
-#include <stdint.h>
 #include "object.h"
 #include "table.h"
 
@@ -13,7 +12,7 @@
 
 
 typedef struct {
-  ObjFunction* function;
+  ObjClosure* closure;
   uint8_t* ip;
   Value* slots;
 } CallFrame;
@@ -28,6 +27,7 @@ typedef struct {
   Value* stackTop;
   Table globals;
   Table strings;
+  ObjUpvalue* openUpvalues;
   Obj* objects;
 } VM;
 
