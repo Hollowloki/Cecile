@@ -1,8 +1,18 @@
-{
-  fun fib(n) {
-    if (n < 2) return n;
-    return fib(n - 1) + fib(n - 2);
+fun outer() {
+  var x = "value";
+  fun middle() {
+    fun inner() {
+      print x;
+    }
+
+    print "create inner closure";
+    return inner;
   }
 
-  print fib(8); // expect: 21
+  print "return from outer";
+  return middle;
 }
+
+var mid = outer();
+var in = mid();
+in();

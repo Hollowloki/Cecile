@@ -31,6 +31,7 @@ typedef enum {
   OP_ADD,
   OP_SUBTRACT,
   OP_MULTIPLY,
+  OP_CLOSE_UPVALUE,
   OP_DIVIDE,
   OP_NOT,
 } Opcode;
