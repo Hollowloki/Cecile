@@ -17,6 +17,10 @@ void* reallocate(void* pointer, size_t oldSize, size_t newSize) {
 
 static void freeObject(Obj* object) {
   switch (object->type) {
+    case OBJ_CLOSURE: {
+      FREE(ObjClosure, object);
+      break;
+    }
     case CECILE_OBJ_NATIVE:
       FREE(ObjNative, object);
       break;

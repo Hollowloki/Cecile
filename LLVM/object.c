@@ -18,9 +18,16 @@ static Obj* allocateObject(size_t size, ObjType type) {
   return object;
 }
 
+ObjClosure* newClosure(ObjFunction* function) {
+  ObjClosure* closure = ALLOCATE_OBJ(ObjClosure, OBJ_CLOSURE);
+  closure->function = function;
+  return closure;
+}
+
 ObjFunction* newFunction() {
   ObjFunction* function = ALLOCATE_OBJ(ObjFunction, CECILE_OBJ_FUNCTION);
   function->arity = 0;
+  function->upvalueCount = 0;
   function->name = NULL;
   initChunk(&function->chunk);
   return function;
@@ -83,6 +90,9 @@ static void printFunction(ObjFunction* function) {
 
 void printObject(Value value) {
   switch (CECILE_OBJ_TYPE(value)) {
+    case OBJ_CLOSURE:
+      printFunction(AS_CLOSURE(value)->function);
+      break;
     case CECILE_OBJ_FUNCTION:
       printFunction(CECILE_AS_FUNCTION(value));
       break;
